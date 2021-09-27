@@ -7,7 +7,7 @@ function Directory(props) {
     const renderDirectoryItem = ({ item }) => {
         return (
             
-            <listItem 
+            <ListItem 
                 title={item.name}
                 subtitle={item.description}
                 leftAvatar={{ source: require('./images/react-lake.jpg') }}

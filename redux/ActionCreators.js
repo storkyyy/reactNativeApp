@@ -1,5 +1,6 @@
 import * as ActionTypes from './ActionTypes';
 import { baseUrl } from '../shared/baseUrl';
+import { createPortal } from 'react-dom';
 
 export const fetchComments = () => dispatch => {
     return fetch(baseUrl + 'comments')
@@ -153,3 +154,25 @@ export const addFavorite = campsiteId => ({
     payload: campsiteId
 });
 
+export const postComment = (campsiteId, rating, author, comment) => dispatch => {
+    const newComment = {
+        campsiteId,
+        rating,
+        author,
+        comment
+    };
+
+    // Add date to newComment 
+    let date = new Date();
+    newComment.date = date.toISOString();
+
+    setTimeout(() => {
+        dispatch(addComment(newComment));
+    }, 2000);
+
+};
+
+export const addComment = comment => ({
+    type: ActionTypes.ADD_COMMENT,
+    payload: comment
+});

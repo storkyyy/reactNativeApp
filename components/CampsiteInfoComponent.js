@@ -87,7 +87,7 @@ class CampsiteInfo extends Component {
         this.state = {
             rating: 5,
             author: '',
-            comment: '',
+            text: '',
             showModal: false
         }
     }
@@ -97,7 +97,7 @@ class CampsiteInfo extends Component {
     }
 
     handleComment(campsiteId) {
-        this.props.postComment(campsiteId, this.state.rating, this.state.author, this.state.comment)
+        this.props.postComment(campsiteId, this.state.rating, this.state.author, this.state.text)
         this.toggleModal();
     }
 
@@ -168,8 +168,8 @@ class CampsiteInfo extends Component {
                                 />
                             }
                             leftIconContainerStyle={{ paddingRight: 10 }}
-                            onChangeText={comment => this.setState({ comment: comment })}
-                            value={this.state.comment}
+                            onChangeText={text => this.setState({ text: text })}
+                            value={this.state.text}
                         />
                         <View style={{ margin: 10 }}>
                             <Button

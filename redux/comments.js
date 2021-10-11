@@ -4,8 +4,8 @@ export const comments = (state = { errMess: null, comments: [] }, action) => {
     switch (action.type) {
         case ActionTypes.ADD_COMMENT:
             const comment = action.payload;
-            console.log(comment);
             comment.id = state.comments.length;
+
             return { ...state, errMess: null, comments: state.comments.concat(comment) }
 
         case ActionTypes.ADD_COMMENTS:

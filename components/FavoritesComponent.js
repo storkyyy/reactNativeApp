@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
         fontWeight: '700',
         textAlign: 'center',
         fontSize: 16,
-        width: '100'
+        width: 100
     }
 });
 

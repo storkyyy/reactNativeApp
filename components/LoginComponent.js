@@ -24,10 +24,10 @@ class LoginTab extends Component {
     static navigationOptions = {
         title: 'Login',
         tabBarIcon: ({ tintColor }) => (
-            <Icon 
+            <Icon
                 name='sign-in'
                 type='font-awesome'
-                iconStyle={{color: tintColor}}
+                iconStyle={{ color: tintColor }}
             />
         )
     }
@@ -39,7 +39,7 @@ class LoginTab extends Component {
                 username: this.state.username,
                 password: this.state.password
             }))
-            .catch(error => console.log('Could not saver user info', error));
+                .catch(error => console.log('Could not saver user info', error));
         } else {
             SecureStore.deleteItemAsync('userinfo')
                 .catch(error => console.log('Could not delete user info', error))
@@ -51,7 +51,7 @@ class LoginTab extends Component {
             .then(userData => {
                 const userInfo = JSON.parse(userData);
 
-                if(userInfo) {
+                if (userInfo) {
                     this.setState({ username: userInfo.username });
                     this.setState({ password: userInfo.password });
                     this.setState({ remember: true });
@@ -60,62 +60,62 @@ class LoginTab extends Component {
     }
 
     render() {
-        
+
         return (
 
             <View style={styles.container}>
-                <Input 
+                <Input
                     placeholder='Username'
-                    leftIcon={{type: 'font-awesome', name: 'user-o'}}
-                    onChangeText={username => this.setState({username})}
+                    leftIcon={{ type: 'font-awesome', name: 'user-o' }}
+                    onChangeText={username => this.setState({ username })}
                     value={this.state.username}
                     containerStyle={styles.formInput}
                     leftIconContainerStyle={styles.formIcon}
                 />
-                <Input 
+                <Input
                     placeholder='Password'
-                    leftIcon={{type: 'font-awesome', name: 'key'}}
-                    onChangeText={password => this.setState({password})}
+                    leftIcon={{ type: 'font-awesome', name: 'key' }}
+                    onChangeText={password => this.setState({ password })}
                     value={this.state.password}
                     containerStyle={styles.formInput}
                     leftIconContainerStyle={styles.formIcon}
                 />
-                <CheckBox 
+                <CheckBox
                     title='Remember Me'
                     center
                     checked={this.state.remember}
-                    onPress={() => this.setState({remember: !this.state.remember})}
+                    onPress={() => this.setState({ remember: !this.state.remember })}
                     containerStyle={styles.formCheckBox}
                 />
                 <View style={styles.formButton}>
-                    <Button 
+                    <Button
                         onPress={() => this.handleLogin()}
                         title='Login'
                         icon={
-                            <Icon 
+                            <Icon
                                 name='sign-in'
                                 type='font-awesome'
                                 color='#fff'
-                                iconStyle={{marginRight: 10}}
+                                iconStyle={{ marginRight: 10 }}
                             />
                         }
-                        buttonStyle={{backgroundColor: '#5637DD'}}
+                        buttonStyle={{ backgroundColor: '#5637DD' }}
                     />
                 </View>
                 <View style={styles.formButton}>
-                    <Button 
+                    <Button
                         onPress={() => this.props.navigation.navigate('Register')}
                         title='Register'
                         type='clear'
                         icon={
-                            <Icon 
+                            <Icon
                                 name='user-plus'
                                 type='font-awesome'
                                 color='blue'
-                                iconStyle={{marginRight: 10}}
+                                iconStyle={{ marginRight: 10 }}
                             />
                         }
-                        titleStyle={{color: 'blue'}}
+                        titleStyle={{ color: 'blue' }}
                     />
                 </View>
             </View>
@@ -139,15 +139,17 @@ class RegisterTab extends Component {
             remember: false,
             imageUrl: baseUrl + 'images/logo.png'
         }
+
+
     }
 
     static navigationOptions = {
         title: 'Register',
         tabBarIcon: ({ tintColor }) => (
-            <Icon 
+            <Icon
                 name='user-plus'
                 type='font-awesome'
-                iconStyle={{color: tintColor}}
+                iconStyle={{ color: tintColor }}
             />
         )
     }
@@ -156,7 +158,7 @@ class RegisterTab extends Component {
         const cameraPermission = await Permissions.askAsync(Permissions.CAMERA);
         const cameraRollPermission = await Permissions.askAsync(Permissions.CAMERA_ROLL);
 
-        if (cameraPermission.status === 'granted' && cameraRollPermission === 'granted') {
+        if (cameraPermission.status === 'granted' && cameraRollPermission.status === 'granted') {
             const capturedImage = await ImagePicker.launchCameraAsync({
                 allowsEditing: true,
                 aspect: [1, 1]
@@ -164,8 +166,7 @@ class RegisterTab extends Component {
 
             if (!capturedImage.cancelled) {
                 console.log(capturedImage);
-
-                this.setState({imageUrl: capturedImage});
+                this.setState({ imageUrl: capturedImage.uri });
             }
         }
     }
@@ -177,7 +178,7 @@ class RegisterTab extends Component {
                 username: this.state.username,
                 password: this.state.password
             }))
-            .catch(error => console.log('Could not saver user info', error));
+                .catch(error => console.log('Could not saver user info', error));
         } else {
             SecureStore.deleteItemAsync('userinfo')
                 .catch(error => console.log('Could not delete user info', error))
@@ -190,76 +191,76 @@ class RegisterTab extends Component {
             <ScrollView>
                 <View style={styles.container}>
                     <View style={styles.imageContainer}>
-                        <Image 
-                            source={{uri: this.state.imageUrl}}
+                        <Image
+                            source={{ uri: this.state.imageUrl }}
                             loadingIndicatorSource={require('./images/logo.png')}
                             style={styles.image}
                         />
-                        <Button 
+                        <Button
                             title='Camera'
                             onPress={this.getImageFromCamera}
                         />
                     </View>
-                    <Input 
+                    <Input
                         placeholder='Username'
-                        leftIcon={{type: 'font-awesome', name: 'user-o'}}
-                        onChangeText={username => this.setState({username})}
+                        leftIcon={{ type: 'font-awesome', name: 'user-o' }}
+                        onChangeText={username => this.setState({ username })}
                         value={this.state.username}
                         containerStyle={styles.formInput}
                         leftIconContainerStyle={styles.formIcon}
                     />
-                    <Input 
+                    <Input
                         placeholder='Password'
-                        leftIcon={{type: 'font-awesome', name: 'key'}}
-                        onChangeText={password => this.setState({password})}
+                        leftIcon={{ type: 'font-awesome', name: 'key' }}
+                        onChangeText={password => this.setState({ password })}
                         value={this.state.password}
                         containerStyle={styles.formInput}
                         leftIconContainerStyle={styles.formIcon}
                     />
-                    <Input 
+                    <Input
                         placeholder='First Name'
-                        leftIcon={{type: 'font-awesome', name: 'user-o'}}
-                        onChangeText={firstname => this.setState({firstname})}
+                        leftIcon={{ type: 'font-awesome', name: 'user-o' }}
+                        onChangeText={firstname => this.setState({ firstname })}
                         value={this.state.firstname}
                         containerStyle={styles.formInput}
                         leftIconContainerStyle={styles.formIcon}
                     />
-                    <Input 
+                    <Input
                         placeholder='Last Name'
-                        leftIcon={{type: 'font-awesome', name: 'user-o'}}
-                        onChangeText={lastname => this.setState({lastname})}
+                        leftIcon={{ type: 'font-awesome', name: 'user-o' }}
+                        onChangeText={lastname => this.setState({ lastname })}
                         value={this.state.lastname}
                         containerStyle={styles.formInput}
                         leftIconContainerStyle={styles.formIcon}
                     />
-                    <Input 
+                    <Input
                         placeholder='Email'
-                        leftIcon={{type: 'font-awesome', name: 'envelope-o'}}
-                        onChangeText={email => this.setState({email})}
+                        leftIcon={{ type: 'font-awesome', name: 'envelope-o' }}
+                        onChangeText={email => this.setState({ email })}
                         value={this.state.email}
                         containerStyle={styles.formInput}
                         leftIconContainerStyle={styles.formIcon}
                     />
-                    <CheckBox 
+                    <CheckBox
                         title='Remember Me'
                         center
                         checked={this.state.remember}
-                        onPress={() => this.setState({remember: !this.state.remember})}
+                        onPress={() => this.setState({ remember: !this.state.remember })}
                         containerStyle={styles.formCheckBox}
                     />
                     <View style={styles.formButton}>
-                        <Button 
+                        <Button
                             onPress={() => this.handleRegister()}
                             title='Register'
                             icon={
-                                <Icon 
+                                <Icon
                                     name='user-plus'
                                     type='font-awesome'
                                     color='#fff'
-                                    iconStyle={{marginRight: 10}}
+                                    iconStyle={{ marginRight: 10 }}
                                 />
                             }
-                            buttonStyle={{backgroundColor: '#5637DD'}}
+                            buttonStyle={{ backgroundColor: '#5637DD' }}
                         />
                     </View>
                 </View>
@@ -280,7 +281,7 @@ const Login = createBottomTabNavigator(
             inactiveBackgroundColor: '#CEC8FF',
             activeTintColor: '#fff',
             inactiveTintColor: '#808080',
-            labelStyle: {fontSize: 16}
+            labelStyle: { fontSize: 16 }
         }
     }
 );
@@ -294,7 +295,7 @@ const styles = StyleSheet.create({
         marginRight: 10
     },
     formInput: {
-        
+
     },
     formCheckBox: {
         margin: 5,

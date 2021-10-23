@@ -3,6 +3,8 @@ import { Text, View, ScrollView, StyleSheet, Picker, Switch, Button, Alert } fro
 import DateTimePicker from '@react-native-community/datetimepicker';
 import * as Animatable from 'react-native-animatable';
 import * as Notifications from 'expo-notifications';
+import * as Location from 'expo-location';
+
 
 class Reservation extends Component {
 
@@ -20,6 +22,25 @@ class Reservation extends Component {
     static navigationOptions = {
         title: 'Reserve Campsite'
     }
+
+    handleLocation = async () => {
+        // Check if permissions have been given
+        let foregroundPermissions = await Location.getForegroundPermissionsAsync();
+
+        // If not given, request
+        if (!foregroundPermissions.granted) {
+            foregroundPermissions = await Location.requestForegroundPermissionsAsync();
+        }
+
+        if (foregroundPermissions.granted) {
+            const location = await Location.getCurrentPositionAsync({
+                accuracy: Location.Accuracy.Balanced
+            });
+
+            console.log('Your location is close to: ' + JSON.stringify(location));
+        }
+    }
+
 
     handleReservation() {
         console.log(JSON.stringify(this.state));
@@ -147,6 +168,11 @@ class Reservation extends Component {
                             color='#5637DD'
                             accessibilityLabel='Tap me to search for available campsites to reserve'
                         />
+                        <Button
+                            onPress={() => this.handleLocation()}
+                            title='Share Location?'
+                            color='#5637DD'
+                        />  
                     </View>
                 </Animatable.View>
             </ScrollView>
@@ -157,7 +183,7 @@ class Reservation extends Component {
 const styles = StyleSheet.create({
     formRow: {
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'space-around',
         flex: 1,
         flexDirection: 'row',
         margin: 20

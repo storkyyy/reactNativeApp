@@ -347,7 +347,6 @@ class Main extends Component {
         this.unsubscribeNetInfo = NetInfo.addEventListener(connectionInfo => {
             this.handleConnectivityChange(connectionInfo);
         });
-
     }
 
     componentWillUnmount() {

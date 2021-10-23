@@ -24,7 +24,7 @@ export const ConfigureStore = () => {
             promotions,
             favorites
         }),
-        applyMiddleware(thunk)
+        applyMiddleware(thunk, logger)
     );
 
     const persistor = persistStore(store);
